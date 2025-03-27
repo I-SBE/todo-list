@@ -1,3 +1,5 @@
+
+// Load todos from the server and display them
 function loadTodos() {
     fetch('todo.php')
         .then(response => response.json())
@@ -5,6 +7,8 @@ function loadTodos() {
             console.log(todos);
             const todoList = document.getElementById('todoList');
             todoList.innerHTML = '';
+
+            // Add each todo as a list item
             todos.forEach(todo => {
                 const li = document.createElement('li');
                 li.textContent = todo;
@@ -13,10 +17,12 @@ function loadTodos() {
         });
 }
 
+// When the page is loaded, fetch and display todos
 window.addEventListener("load", (event) => {
     loadTodos();
 });
 
+// Handle form submission for adding a new todo
 document.getElementById('todoForm').addEventListener(
     'submit', function (e) {
 
@@ -25,6 +31,7 @@ document.getElementById('todoForm').addEventListener(
     const todoInput = document.getElementById('todoInput').value;
     // console.log(JSON.stringify({ todo: todoInput }));
 
+    // Send the new todo to the server
     fetch('todo.php', {
         method: 'POST',
         headers: {
@@ -32,10 +39,12 @@ document.getElementById('todoForm').addEventListener(
         },
         body: JSON.stringify({ todo: todoInput }),
     })
+    
     .then(response => response.json())
     .then((result) => {
+
         // console.log(result)
-        loadTodos();
+        loadTodos();    // Refresh the list after adding
         document.getElementById('todoInput').value = '';
     })
     .catch(error => console.error(`Fehler beim Senden des Todos: ${error}`))
