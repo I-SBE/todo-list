@@ -6,13 +6,21 @@ function loadTodos() {
         .then(todos => {
             console.log(todos);
             const todoList = document.getElementById('todoList');
+            const todoListOrdered = document.getElementById('todoListOrdered');
+
             todoList.innerHTML = '';
+            todoListOrdered.innerHTML = ''; 
 
             // Add each todo as a list item
             todos.forEach(todo => {
                 const li = document.createElement('li');
+                const liOrdered = document.createElement('li');
+
                 li.textContent = todo;
+                liOrdered.textContent = todo;
+
                 todoList.appendChild(li);
+                todoListOrdered.appendChild(liOrdered);
             });
         });
 }
